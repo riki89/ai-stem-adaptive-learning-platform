@@ -5,33 +5,38 @@ This repository contains the architecture, data models, and system configuration
 
 ## System Architecture
 
-+----------------------------------------------------------------------------------+                                  
+```mermaid
+graph TD
+    %% Styling Definitions
+    classDef client fill:#1f77b4,stroke:#114a73,stroke-width:2px,color:#fff;
+    classDef api fill:#ff7f0e,stroke:#b35300,stroke-width:2px,color:#fff;
+    classDef storage fill:#2ca02c,stroke:#1a661a,stroke-width:2px,color:#fff;
 
-|                               CLIENT LAYER (Edge)                                |                                  
-|   +--------------------------+  Offline Sync   +-----------------------------+   |                                  
-|   |   Angular Progressive    | --------------> |  Service Workers & SQLite   |   |                                  
-|   |    Web App (PWA Frontend) | <-------------- |  (Local Content Caching)   |   |                                  
-|   +--------------------------+   (WebSockets)  +-----------------------------+   |                                  
-+----------------------------------------|-----------------------------------------+                                  
-                                         | Secure HTTPS / TLS 1.3                                                     
-                                         v                                                                            
-+----------------------------------------------------------------------------------+                                  
+    subgraph Client Layer [CLIENT LAYER - Edge Optimization]
+        PWA[Angular Progressive Web App]
+        Cache[Service Workers & SQLite Cache]
+        PWA <-->|Offline Sync| Cache
+    end
+    class PWA,Cache client;
 
-|                                API / SERVICE LAYER                               |                                  
-|   +--------------------------------------------------------------------------+   |                                  
-|   |         Spring Boot Enterprise Gateway (REST Endpoints & Security)       |   |                                  
-|   +--------------------------------------------------------------------------+   |                                  
-+----------------------------------------|-----------------------------------------+                                  
-                                         | Microservices Communication                                                
-                                         v                                                                            
-+----------------------------------------------------------------------------------+                                  
+    subgraph API Layer [API / SERVICE LAYER]
+        Gateway[Spring Boot Enterprise Gateway]
+    end
+    class Gateway api;
 
-|                                AI & STORAGE LAYER                                |
-|  +---------------------------+  +-------------------+  +----------------------+  |
-|  |     AI Inference Engine   |  | PostgreSQL DB     |  | Cloud Object Storage |  |
-|  |   (ONNX Runtime/FastAPI)  |  | (Student Profiles)|  | (Static Video/Text)  |  |
-|  +---------------------------+  +-------------------+  +----------------------+  |
-+----------------------------------------------------------------------------------+
+    subgraph Data Layer [AI & STORAGE LAYER]
+        AI[AI Inference Engine: ONNX / FastAPI]
+        DB[(PostgreSQL DB: Student Profiles)]
+        S3[Cloud Object Storage: Static Content]
+    end
+    class AI,DB,S3 storage;
+
+    %% Connections
+    PWA <-->|Secure HTTPS / TLS 1.3| Gateway
+    Gateway -->|Microservices Communication| AI
+    Gateway -->|Data Persistence| DB
+    Gateway -->|Asset Fetching| S3
+```
 
 ## Deep-Dive Component Specifications
 
