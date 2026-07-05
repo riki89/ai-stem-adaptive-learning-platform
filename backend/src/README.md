@@ -1,22 +1,40 @@
 Spring Boot microservices gateway
 
 ```mermaid
-timeline
-    title 12-Month Engineering & Deployment Roadmap
-    section Phase 1: Months 1-3
-        Core Infrastructure : Establish Git VCS environments & CI/CD pipeline triggers
-        Backplane Setup : Build core Spring Boot REST API gateway endpoints
-        Frontend Shell : Construct Angular Progressive Web App structural layout components
-    section Phase 2: Months 4-6
-        Data Segregation : Implement row-level multi-tenant data access control within PostgreSQL
-        Offline Architecture : Build IndexedDB offline synchronization message queues within frontend client
-        Security Baseline : Configure explicit AES-256-GCM data encryption-at-rest modules
-    section Phase 3: Months 7-9
-        NLP Pipelines : Containerize distilled NLP (DistilBERT) pipelines via FastAPI microservices
-        Computer Vision : Build low-latency Computer Vision endpoints for mobile devices
-        Stress Testing : Run performance testing simulating regional low-bandwidth connections
-    section Phase 4: Months 10-12
-        Cloud Deployment : Deploy optimized static UI assets to production-ready AWS S3 environments
-        Regional Pilot : Initiate active pilot evaluations with 1-2 regional school districts
-        Model Tuning : Consolidate end-user performance metrics to retrain system models
+graph TD
+    classDef phase fill:#f9f9f9,stroke:#333,stroke-width:1px;
+    classDef task fill:#fff,stroke:#666,stroke-width:1px,font-size:12px;
+
+    subgraph P1 [Phase 1: Months 1-3 — Core Infrastructure]
+        A[Establish Git VCS & CI/CD Triggers]
+        B[Build Spring Boot REST API Endpoints]
+        C[Construct Angular PWA Layout Components]
+    end
+    class P1,A,B,C phase;
+
+    subgraph P2 [Phase 2: Months 4-6 — Data & Compliance]
+        D[Implement PostgreSQL Row-Level Security]
+        E[Build IndexedDB Offline Sync Queues]
+        F[Configure AES-256-GCM Encryption]
+    end
+    class P2,D,E,F phase;
+
+    subgraph P3 [Phase 3: Months 7-9 — AI Integration]
+        G[Containerize DistilBERT via FastAPI]
+        H[Build Mobile-Optimized CV Endpoints]
+        I[Simulate Low-Bandwidth Network Stress]
+    end
+    class P3,G,H,I phase;
+
+    subgraph P4 [Phase 4: Months 10-12 — Deployment & Pilot]
+        J[Deploy Static UI Assets to AWS S3]
+        K[Launch Controlled Regional Pilot Program]
+        L[Consolidate Telemetry to Retrain Models]
+    end
+    class P4,J,K,L phase;
+
+    %% Workflow Flow
+    C --> D
+    F --> G
+    I --> J
 ```
